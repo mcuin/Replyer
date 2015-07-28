@@ -1,9 +1,14 @@
 package com.mykal.textback;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class ReplyList extends AppCompatActivity {
 
@@ -11,6 +16,15 @@ public class ReplyList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reply_list);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReplyList.this, AddReply.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -28,7 +42,7 @@ public class ReplyList extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_feedback) {
             return true;
         }
 
