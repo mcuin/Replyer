@@ -18,11 +18,13 @@
         </activity>
         <activity
             android:name=".AddReply"
-            android:label="@string/title_activity_add_reply" >
+            android:label="@string/title_activity_add_reply"
+            android:parentActivityName=".ReplyList">
         </activity>
         <activity
             android:name=".Feedback"
-            android:label="@string/title_activity_feedback" >
+            android:label="@string/title_activity_feedback"
+            android:parentActivityName=".ReplyList">
         </activity>
     </application>
 

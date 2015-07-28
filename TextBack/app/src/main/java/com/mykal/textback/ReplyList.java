@@ -51,7 +51,8 @@ public class ReplyList extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_feedback) {
-            return true;
+            Intent intent = new Intent(ReplyList.this, Feedback.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
