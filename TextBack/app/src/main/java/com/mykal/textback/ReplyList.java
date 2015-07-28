@@ -9,13 +9,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReplyList extends AppCompatActivity {
+
+//    ListView replyList = (ListView) findViewById(R.id.replyList);
+  //  HashMap<String, String> hashAdapter = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reply_list);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -47,5 +55,9 @@ public class ReplyList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addItems(String a, String b) {
+
     }
 }
