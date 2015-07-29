@@ -10,9 +10,9 @@
         <item name="android:actionBarStyle">@style/ActionBarStyle</item>
     </style>
     
-    <style name="ActionBarStyle" parent="Theme.AppCompat.Light">
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name ="android:textColorPrimary">#FFFFFF</item>
-        <item name="android:textColorSecondary">#BBDEFE</item>
+        <item name ="android:textColorSecondary">#BBDEFE</item>
     </style>
 
 </resources>

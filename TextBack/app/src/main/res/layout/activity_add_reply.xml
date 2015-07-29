@@ -13,7 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:hint="Reply Name" />
+        android:hint="Reply Name"
+        android:text="Default" />
 
     <EditText
         android:layout_width="fill_parent"

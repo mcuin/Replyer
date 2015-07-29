@@ -10,18 +10,21 @@ import android.widget.TextView;
 
 public class AddReply extends AppCompatActivity {
 
+    protected static TextView nameField, messageField;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reply);
 
+        nameField = (TextView) findViewById(R.id.replyName);
+        messageField = (TextView) findViewById(R.id.replyText);
         Button saveButton = (Button) findViewById(R.id.saveButton);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView nameField = (TextView) findViewById(R.id.replyName);
-                TextView messageField = (TextView) findViewById(R.id.replyText);
+
             }
         });
     }
@@ -46,5 +49,9 @@ public class AddReply extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static String getName() {
+        return nameField.toString();
     }
 }

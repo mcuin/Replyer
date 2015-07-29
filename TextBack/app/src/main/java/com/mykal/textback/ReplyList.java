@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -16,14 +17,18 @@ import java.util.HashMap;
 
 public class ReplyList extends AppCompatActivity {
 
-//    ListView replyList = (ListView) findViewById(R.id.replyList);
-  //  HashMap<String, String> hashAdapter = new HashMap<>();
+    ListView replies;
+    ArrayList<String> entries;
+    ArrayAdapter<String> adapterEntries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reply_list);
 
+        replies = (ListView) findViewById(R.id.replyList);
+        entries = new ArrayList<String>();
+        entries.add("Default");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +61,14 @@ public class ReplyList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //entries.add(AddReply.getName());
+        adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, entries);
+        replies.setAdapter(adapterEntries);
     }
 
     public void addItems(String a, String b) {
