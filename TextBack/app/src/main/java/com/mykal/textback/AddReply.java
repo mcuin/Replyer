@@ -1,16 +1,19 @@
 package com.mykal.textback;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class AddReply extends AppCompatActivity {
 
-    protected static TextView nameField, messageField;
+    static TextView nameField, messageField;
+    static String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +27,11 @@ public class AddReply extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ReplyList.entries.add(nameField.getText().toString());
+                ReplyList.adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ReplyList.entries);
+                System.out.println(ReplyList.adapterEntries.getCount() + "Click");
+                Intent intent = new Intent(AddReply.this, ReplyList.class);
+                startActivity(intent);
             }
         });
     }
@@ -52,6 +59,6 @@ public class AddReply extends AppCompatActivity {
     }
 
     public static String getName() {
-        return nameField.toString();
+        return name;
     }
 }

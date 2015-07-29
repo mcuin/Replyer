@@ -18,8 +18,8 @@ import java.util.HashMap;
 public class ReplyList extends AppCompatActivity {
 
     ListView replies;
-    ArrayList<String> entries;
-    ArrayAdapter<String> adapterEntries;
+    static ArrayList<String> entries;
+    static ArrayAdapter<String> adapterEntries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +27,8 @@ public class ReplyList extends AppCompatActivity {
         setContentView(R.layout.activity_reply_list);
 
         replies = (ListView) findViewById(R.id.replyList);
-        entries = new ArrayList<String>();
-        entries.add("Default");
+        entries = new ArrayList<>();
+        adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, entries);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,12 +66,11 @@ public class ReplyList extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        //entries.add(AddReply.getName());
-        adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, entries);
-        replies.setAdapter(adapterEntries);
-    }
-
-    public void addItems(String a, String b) {
-
+        System.out.println(adapterEntries.getCount() + "Resume");
+        if (adapterEntries.isEmpty()) {
+            replies.setEmptyView(replies);
+        } else {
+            replies.setAdapter(adapterEntries);
+        }
     }
 }
