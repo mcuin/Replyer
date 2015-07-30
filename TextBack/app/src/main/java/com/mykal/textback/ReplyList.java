@@ -35,7 +35,7 @@ public class ReplyList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ReplyList.this, AddReply.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -71,6 +71,17 @@ public class ReplyList extends AppCompatActivity {
             replies.setEmptyView(replies);
         } else {
             replies.setAdapter(adapterEntries);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                entries = data.getStringArrayListExtra("newEntry");
+                adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, entries);
+            }
         }
     }
 }

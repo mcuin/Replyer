@@ -28,10 +28,10 @@ public class AddReply extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ReplyList.entries.add(nameField.getText().toString());
-                ReplyList.adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ReplyList.entries);
-                System.out.println(ReplyList.adapterEntries.getCount() + "Click");
-                Intent intent = new Intent(AddReply.this, ReplyList.class);
-                startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("newEntry", ReplyList.entries);
+                setResult(RESULT_OK, returnIntent);
+                finish();
             }
         });
     }
