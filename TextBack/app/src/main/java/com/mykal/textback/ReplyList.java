@@ -1,6 +1,5 @@
 package com.mykal.textback;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,16 +8,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public class ReplyList extends AppCompatActivity {
 
     ListView replies;
-    static ArrayList<String> entries;
+    static ArrayList<String> entryNames;
+    static ArrayList<String> entryText;
     static ArrayAdapter<String> adapterEntries;
 
     @Override
@@ -27,8 +25,11 @@ public class ReplyList extends AppCompatActivity {
         setContentView(R.layout.activity_reply_list);
 
         replies = (ListView) findViewById(R.id.replyList);
-        entries = new ArrayList<>();
-        adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, entries);
+        replies.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        entryNames = new ArrayList<>();
+        entryText = new ArrayList<>();
+        adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, entryNames);
+        adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_2, entryText);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +58,7 @@ public class ReplyList extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_feedback) {
             Intent intent = new Intent(ReplyList.this, Feedback.class);
-            startActivity(intent);
+            startActivityForResult(intent, 2);
         }
 
         return super.onOptionsItemSelected(item);
@@ -66,9 +67,9 @@ public class ReplyList extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        System.out.println(adapterEntries.getCount() + "Resume");
-        if (adapterEntries.isEmpty()) {
+        if (entryNames.size() == 0) {
             replies.setEmptyView(replies);
+            System.out.println("0");
         } else {
             replies.setAdapter(adapterEntries);
         }
@@ -79,8 +80,10 @@ public class ReplyList extends AppCompatActivity {
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                entries = data.getStringArrayListExtra("newEntry");
-                adapterEntries = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, entries);
+                entryNames = data.getStringArrayListExtra("newNameEntry");
+                entryText = data.getStringArrayListExtra("newMessageEntry");
+                adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, entryNames);
+                adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_2, entryText);
             }
         }
     }

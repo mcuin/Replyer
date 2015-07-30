@@ -36,6 +36,9 @@ public class Feedback extends AppCompatActivity {
                 } catch (android.content.ActivityNotFoundException ex) {
                     Toast.makeText(Feedback.this, "No email clients found.", Toast.LENGTH_SHORT).show();
                 }
+
+                setResult(RESULT_OK);
+                finish();
             }
         });
 
