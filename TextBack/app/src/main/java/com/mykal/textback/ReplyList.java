@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class ReplyList extends AppCompatActivity {
 
     ListView replies;
-    static ArrayList<String> entryNames;
-    static ArrayList<String> entryText;
+    ArrayList<ArrayList<String>> entries;
+    static ArrayList<String> names, messages;
     static ArrayAdapter<String> adapterEntries;
 
     @Override
@@ -26,10 +26,7 @@ public class ReplyList extends AppCompatActivity {
 
         replies = (ListView) findViewById(R.id.replyList);
         replies.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        entryNames = new ArrayList<>();
-        entryText = new ArrayList<>();
-        adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, entryNames);
-        adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_2, entryText);
+        entries = new ArrayList<>();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +77,10 @@ public class ReplyList extends AppCompatActivity {
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                entryNames = data.getStringArrayListExtra("newNameEntry");
-                entryText = data.getStringArrayListExtra("newMessageEntry");
-                adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, entryNames);
-                adapterEntries = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_2, entryText);
+                for (int i = 0; i < names.size(); i++) {
+                    entries.add(i, messages);
+
+                }
             }
         }
     }

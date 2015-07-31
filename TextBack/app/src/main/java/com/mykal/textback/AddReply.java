@@ -24,11 +24,11 @@ public class AddReply extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReplyList.entryNames.add(nameField.getText().toString());
-                ReplyList.entryText.add(messageField.getText().toString());
+                ReplyList.names.add(nameField.toString());
+                ReplyList.messages.add(messageField.toString());
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("newNameEntry", ReplyList.entryNames);
-                returnIntent.putExtra("newMessageEntry", ReplyList.entryText);
+                returnIntent.putExtra("newNameEntry", ReplyList.names);
+                returnIntent.putExtra("newMessageEntry", ReplyList.messages);
                 setResult(RESULT_OK, returnIntent);
                 finish();
             }
