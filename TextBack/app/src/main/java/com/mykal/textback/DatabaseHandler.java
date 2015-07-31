@@ -1,6 +1,8 @@
 package com.mykal.textback;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -33,4 +35,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         onCreate(db);
     }
+
+    void addReplies(AddReply reply) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, AddReply.nameField.toString());
+        values.put(KEY_MESSAGE, AddReply.messageField.toString());
+
+        db.insert(TABLE_REPLIES, null, values);
+        db.close();
+    }
+    
 }
