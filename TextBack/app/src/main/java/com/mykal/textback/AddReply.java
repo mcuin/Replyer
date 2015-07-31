@@ -10,13 +10,14 @@ import android.widget.TextView;
 public class AddReply extends AppCompatActivity {
 
     static TextView nameField, messageField;
-    static String name;
+    static String name, message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reply);
 
+        final DatabaseHandler db = new DatabaseHandler(this);
         nameField = (TextView) findViewById(R.id.replyName);
         messageField = (TextView) findViewById(R.id.replyText);
         Button saveButton = (Button) findViewById(R.id.saveButton);
@@ -24,15 +25,24 @@ public class AddReply extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReplyList.names.add(nameField.toString());
-                ReplyList.messages.add(messageField.toString());
+                db.addReplies();
+
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("newNameEntry", ReplyList.names);
-                returnIntent.putExtra("newMessageEntry", ReplyList.messages);
                 setResult(RESULT_OK, returnIntent);
                 finish();
             }
         });
     }
 
+    public static String getName() {
+        name = nameField.toString();
+
+        return name;
+    }
+
+    public static String getMessage() {
+        message = messageField.toString();
+
+        return message;
+    }
 }

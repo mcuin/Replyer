@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by mykal on 7/31/15.
@@ -24,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_REPLIES_TABLE = "CREATE TABLE " + TABLE_REPLIES + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME +
+        String CREATE_REPLIES_TABLE = "CREATE TABLE " + TABLE_REPLIES + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME +
                 " TEXT," + KEY_MESSAGE + " TEXT" + ")";
         db.execSQL(CREATE_REPLIES_TABLE);
     }
@@ -36,15 +37,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addReplies(AddReply reply) {
+    void addReplies() {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, AddReply.nameField.toString());
-        values.put(KEY_MESSAGE, AddReply.messageField.toString());
+        values.put(KEY_NAME, AddReply.getName());
+        values.put(KEY_MESSAGE, AddReply.getMessage());
 
         db.insert(TABLE_REPLIES, null, values);
+        System.out.println("Hello from DB");
         db.close();
     }
-    
+
 }

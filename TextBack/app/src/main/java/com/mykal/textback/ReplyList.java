@@ -61,7 +61,7 @@ public class ReplyList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+   /* @Override
     public void onResume() {
         super.onResume();
         if (entryNames.size() == 0) {
@@ -70,7 +70,7 @@ public class ReplyList extends AppCompatActivity {
         } else {
             replies.setAdapter(adapterEntries);
         }
-    }
+    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
