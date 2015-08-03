@@ -7,9 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by mykal on 7/31/15.
  */
+
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -18,6 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
     private static final String KEY_MESSAGE = "message";
+    SQLiteDatabase db;
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,4 +54,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
+    Cursor listReplies() {
+        return db.query(TABLE_REPLIES, new String[] {KEY_ID, KEY_NAME, KEY_MESSAGE}, null, null, null, null, null);
+    }
+
+    Cursor getReply(int id) {
+        return db.query(TABLE_REPLIES, null, KEY_ID + "=" + id, null, null, null, null);
+    }
 }

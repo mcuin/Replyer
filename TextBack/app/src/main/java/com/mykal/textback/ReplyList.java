@@ -1,6 +1,8 @@
 package com.mykal.textback;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
 import java.util.ArrayList;
 
 
@@ -16,8 +20,8 @@ public class ReplyList extends AppCompatActivity {
 
     ListView replies;
     ArrayList<ArrayList<String>> entries;
-    static ArrayList<String> names, messages;
-    static ArrayAdapter<String> adapterEntries;
+    SimpleAdapter adapter;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,27 +65,10 @@ public class ReplyList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   /* @Override
+    @Override
     public void onResume() {
         super.onResume();
-        if (entryNames.size() == 0) {
-            replies.setEmptyView(replies);
-            System.out.println("0");
-        } else {
-            replies.setAdapter(adapterEntries);
-        }
-    }*/
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 1) {
-            if (resultCode == RESULT_OK) {
-                for (int i = 0; i < names.size(); i++) {
-                    entries.add(i, messages);
-
-                }
-            }
-        }
     }
+
 }
