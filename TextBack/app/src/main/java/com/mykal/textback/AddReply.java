@@ -35,13 +35,13 @@ public class AddReply extends AppCompatActivity {
     }
 
     public static String saveName() {
-        name = nameField.toString();
+        name = nameField.getEditableText().toString();
 
         return name;
     }
 
     public static String saveMessage() {
-        message = messageField.toString();
+        message = messageField.getEditableText().toString();
 
         return message;
     }
