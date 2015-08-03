@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,14 +15,16 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class ReplyList extends AppCompatActivity {
 
     ListView replies;
-    ArrayList<ArrayList<String>> entries;
+    ArrayList<HashMap<String, String>> entries;
     SimpleAdapter adapter;
-    SQLiteDatabase db;
+    DatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,25 @@ public class ReplyList extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        db = new DatabaseHandler(this);
+
+        List<Replies> reps = db.getAllReplies();
+        entries = new ArrayList<>();
+
+        for (Replies rep : reps) {
+            String log = "Id: " + rep.getId() + " Name: " + rep.getName() + " Message: " + rep.getMessage();
+            Log.d("Reply", log);
+            String name = rep.getName();
+            String message = rep.getMessage();
+            HashMap<String, String> reply = new HashMap<>();
+
+            reply.put(name, message);
+            entries.add(reply);
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_2,
+                new String[] {"name", "message"}, new int[] {android.R.id.text1, android.R.id.text2});
+        replies.setAdapter(adapter);
     }
 
 }

@@ -46,19 +46,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, AddReply.getName());
-        values.put(KEY_MESSAGE, AddReply.getMessage());
+        values.put(KEY_NAME, AddReply.saveName().toString());
+        values.put(KEY_MESSAGE, AddReply.saveMessage());
 
         db.insert(TABLE_REPLIES, null, values);
         System.out.println("Hello from DB");
         db.close();
     }
 
-    Cursor listReplies() {
-        return db.query(TABLE_REPLIES, new String[] {KEY_ID, KEY_NAME, KEY_MESSAGE}, null, null, null, null, null);
+    Replies getReply(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_REPLIES, new String[] {KEY_ID, KEY_NAME, KEY_MESSAGE}, KEY_ID
+                + "=?", new String[] {String.valueOf(id)}, null, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+        }
+
+        Replies reply = new Replies(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+
+        return reply;
     }
 
-    Cursor getReply(int id) {
-        return db.query(TABLE_REPLIES, null, KEY_ID + "=" + id, null, null, null, null);
+    List<Replies> getAllReplies() {
+        List<Replies> repliesList = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_REPLIES;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                Replies reply = new Replies();
+                reply.setId(Integer.parseInt(cursor.getString(0)));
+                reply.setName(cursor.getString(1));
+                reply.setMessage(cursor.getString(2));
+                repliesList.add(reply);
+            } while (cursor.moveToNext());
+        }
+
+        return repliesList;
+    }
+
+    int updateReply(Replies reply) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_NAME, AddReply.saveName());
+        values.put(KEY_MESSAGE, AddReply.saveMessage());
+
+        return db.update(TABLE_REPLIES, values, KEY_ID + " = ?", new String[] {String.valueOf(reply.getId())});
+    }
+
+    void deleteReply(Replies reply) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_REPLIES, KEY_ID + " = ?", new String[] {String.valueOf(reply.getId())});
+        db.close();
     }
 }

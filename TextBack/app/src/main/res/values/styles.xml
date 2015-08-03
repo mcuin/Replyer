@@ -5,14 +5,8 @@
         <item name="colorPrimary">#2196F3</item>
         <item name="colorPrimaryDark">#1976D2</item>
         <item name="colorAccent">#00BCD4</item>
-        <item name="android:actionBarStyle">@style/ActionBarStyle</item>
         <item name="android:textColorPrimary">#212121</item>
         <item name="android:textColorSecondary">#727272</item>
-    </style>
-    
-    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name ="android:textColorPrimary">#FFFFFF</item>
-        <item name ="android:textColorSecondary">#BBDEFE</item>
     </style>
 
 </resources>
