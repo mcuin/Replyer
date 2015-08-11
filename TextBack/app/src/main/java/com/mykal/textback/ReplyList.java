@@ -1,5 +1,7 @@
 package com.mykal.textback;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -71,7 +74,7 @@ public class ReplyList extends AppCompatActivity {
 
         db = new DatabaseHandler(this);
 
-        List<Replies> reps = db.getAllReplies();
+        final List<Replies> reps = db.getAllReplies();
         entries = new ArrayList<>();
 
         for (Replies rep : reps) {
@@ -88,6 +91,31 @@ public class ReplyList extends AppCompatActivity {
         adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_2,
                 new String[] {"name", "message"}, new int[] {android.R.id.text1, android.R.id.text2});
         replies.setAdapter(adapter);
+
+        replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                
+            }
+        });
+
+        replies.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder alertDelete = new AlertDialog.Builder(ReplyList.this);
+                alertDelete.setTitle("Remove?");
+                alertDelete.setNegativeButton("No", null);
+                alertDelete.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Replies reply = db.getReply(position);
+                        db.deleteReply(reply);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                return true;
+            }
+        });
     }
 
 }
