@@ -95,7 +95,7 @@ public class ReplyList extends AppCompatActivity {
         replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+                db.getReply(position);
             }
         });
 
@@ -103,16 +103,10 @@ public class ReplyList extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                AlertDialog.Builder alertDelete = new AlertDialog.Builder(ReplyList.this);
-                alertDelete.setTitle("Remove?");
-                alertDelete.setNegativeButton("No", null);
-                alertDelete.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        Replies reply = db.getReply(position);
-                        db.deleteReply(reply);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+                System.out.println("Inside long click");
+                Replies reply = db.getReply(position);
+                db.deleteReply(reply);
+                adapter.notifyDataSetChanged();
                 return true;
             }
         });
