@@ -23,6 +23,7 @@ public class ReplyList extends AppCompatActivity {
 
     ListView replies;
     ArrayList<HashMap<String, String>> entries;
+    ArrayList<Integer> rId = new ArrayList<>();
     SimpleAdapter adapter;
     DatabaseHandler db;
 
@@ -80,6 +81,8 @@ public class ReplyList extends AppCompatActivity {
         for (Replies rep : reps) {
             String log = "Id: " + rep.getId() + " Name: " + rep.getName() + " Message: " + rep.getMessage();
             Log.d("Reply", log);
+            int replyId = rep.getId();
+            rId.add(replyId);
             String name = "" + rep.getName();
             String message = "" + rep.getMessage();
             HashMap<String, String> reply = new HashMap<>();
@@ -95,7 +98,7 @@ public class ReplyList extends AppCompatActivity {
         replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                db.getReply(position);
+                //db.getReply(position);
             }
         });
 
@@ -104,9 +107,7 @@ public class ReplyList extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 System.out.println("Inside long click");
-                Replies reply = db.getReply(position);
-                db.deleteReply(reply);
-                adapter.notifyDataSetChanged();
+
                 return true;
             }
         });
