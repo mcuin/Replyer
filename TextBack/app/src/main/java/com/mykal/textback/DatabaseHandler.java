@@ -48,7 +48,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_MESSAGE, AddReply.saveMessage());
 
         db.insert(TABLE_REPLIES, null, values);
-        System.out.println("Hello from DB");
         db.close();
     }
 
