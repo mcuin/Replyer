@@ -98,7 +98,7 @@ public class ReplyList extends AppCompatActivity {
         replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //db.getReply(position);
+
             }
         });
 
