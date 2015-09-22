@@ -106,8 +106,7 @@ public class ReplyList extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                System.out.println("Inside long click");
-
+                db.deleteReply(id);
                 return true;
             }
         });

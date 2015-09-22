@@ -5,14 +5,14 @@ package com.mykal.textback;
  */
 public class Replies {
 
-    int id;
+    long id;
     String name, message;
 
     Replies() {
 
     }
 
-    Replies(int id, String name, String message) {
+    Replies(long id, String name, String message) {
         this.id = id;
         this.name = name;
         this.message = message;
@@ -23,7 +23,7 @@ public class Replies {
         this.message = message;
     }
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 

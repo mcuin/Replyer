@@ -94,10 +94,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return db.update(TABLE_REPLIES, values, KEY_ID + " = ?", new String[] {String.valueOf(reply.getId())});
     }
 
-    void deleteReply(Replies reply) {
+    void deleteReply(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLE_REPLIES, KEY_ID + " = ?", new String[] {String.valueOf(reply.getId())});
+        db.delete(TABLE_REPLIES, KEY_ID + " = ?", new String[] {String.valueOf(id)});
         db.close();
     }
 }

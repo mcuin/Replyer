@@ -10,11 +10,11 @@ import junit.framework.Assert;
  * Created by mykal on 9/21/15.
  */
 public class AddReplyTest extends ActivityInstrumentationTestCase2 {
-    public AddReplyTest(Class<AddReply> activityClass) {
-        super(activityClass);
+    public AddReplyTest() {
+        super(AddReplyTest.class);
     }
 
-    public void TitleEmptyTest() throws Exception {
+    public void testTitleEmpty() throws Exception {
 
         AddReply activity = (AddReply) getActivity();
 
@@ -22,8 +22,8 @@ public class AddReplyTest extends ActivityInstrumentationTestCase2 {
 
         Assert.assertNotNull(title);
     }
-    
-    public void MessageEmptyTest() throws Exception {
+
+    public void testMessageEmpty() throws Exception {
 
         AddReply activity = (AddReply) getActivity();
 
