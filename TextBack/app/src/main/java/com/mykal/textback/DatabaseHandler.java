@@ -51,7 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    Replies getReply(int id) {
+    Replies getReply(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_REPLIES, new String[] {KEY_ID, KEY_NAME, KEY_MESSAGE}, KEY_ID
                 + "=?", new String[] {String.valueOf(id)}, null, null, null, null);

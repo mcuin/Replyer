@@ -98,7 +98,11 @@ public class ReplyList extends AppCompatActivity {
         replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent = new Intent(ReplyList.this, AddReply.class);
+                Replies reply = db.getReply(id);
+                intent.putExtra("id", reply.getId());
+                intent.putExtra("name", reply.getName());
+                intent.putExtra("message", reply.getMessage());
             }
         });
 
@@ -107,6 +111,7 @@ public class ReplyList extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 db.deleteReply(id);
+                adapter.notifyDataSetChanged();
                 return true;
             }
         });

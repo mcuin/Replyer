@@ -1,5 +1,6 @@
 package com.mykal.textback;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,16 +23,27 @@ public class AddReply extends AppCompatActivity {
         messageField = (TextView) findViewById(R.id.replyText);
         Button saveButton = (Button) findViewById(R.id.saveButton);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db.addReplies();
+        if (!getIntent().hasExtra("name")) {
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    db.addReplies();
 
-                Intent returnIntent = new Intent();
-                setResult(RESULT_OK, returnIntent);
-                finish();
-            }
-        });
+                    Intent returnIntent = new Intent();
+                    setResult(RESULT_OK, returnIntent);
+                    finish();
+                }
+            });
+        } else {
+            nameField.setText(getIntent().getStringExtra(("name")));
+            messageField.setText(getIntent().getStringExtra("message"));
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Replies reply = db.getReply(getIntent().getStringExtra("id"));
+                }
+            });
+        }
     }
 
     public static String saveName() {
