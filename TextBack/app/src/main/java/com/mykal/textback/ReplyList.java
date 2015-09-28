@@ -26,6 +26,7 @@ public class ReplyList extends AppCompatActivity {
     ListView replies;
     ArrayList<HashMap<String, String>> entries;
     ArrayList<Integer> rId = new ArrayList<>();
+    HashMap<String, String> reply = new HashMap<>();
     SimpleAdapter adapter;
     DatabaseHandler db;
 
@@ -83,13 +84,12 @@ public class ReplyList extends AppCompatActivity {
         for (Replies rep : reps) {
             String name = "" + rep.getName();
             String message = "" + rep.getMessage();
-            HashMap<String, String> reply = new HashMap<>();
 
             reply.put(name, message);
             entries.add(reply);
         }
 
-        adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_2, new String[] {"name", "message"},
+        adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_2, new String[] {reply.get("name"), reply.get("message")},
                 new int[] {android.R.id.text1, android.R.id.text2});
         replies.setAdapter(adapter);
 
@@ -112,7 +112,8 @@ public class ReplyList extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                db.deleteReply(id);
+                Replies reply = db.getReply(id+1);
+                db.deleteReply(reply.getId());
                 adapter.notifyDataSetChanged();
                 return true;
             }
