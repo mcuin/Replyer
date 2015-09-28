@@ -99,10 +99,12 @@ public class ReplyList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ReplyList.this, AddReply.class);
-                Replies reply = db.getReply(id);
+                Replies reply = db.getReply(id+1);
                 intent.putExtra("id", reply.getId());
                 intent.putExtra("name", reply.getName());
                 intent.putExtra("message", reply.getMessage());
+
+                startActivity(intent);
             }
         });
 
