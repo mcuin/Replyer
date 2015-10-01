@@ -40,7 +40,8 @@ public class AddReply extends AppCompatActivity {
             saveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Replies reply = db.getReply(Long.parseLong(getIntent().getStringExtra("id")));
+                    System.out.println(getIntent().getLongExtra("id", 0));
+                    Replies reply = db.getReply(getIntent().getLongExtra("id", 0));
                     db.updateReply(reply);
 
                     Intent returnIntent = new Intent();
