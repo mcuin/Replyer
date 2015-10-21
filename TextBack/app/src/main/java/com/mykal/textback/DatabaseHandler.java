@@ -9,10 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mykal on 7/31/15.
- */
-
 public class DatabaseHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -44,7 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, AddReply.saveName().toString());
+        values.put(KEY_NAME, AddReply.saveName());
         values.put(KEY_MESSAGE, AddReply.saveMessage());
 
         db.insert(TABLE_REPLIES, null, values);

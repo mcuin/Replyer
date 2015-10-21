@@ -1,8 +1,5 @@
 package com.mykal.textback;
 
-/**
- * Created by mykal on 8/3/15.
- */
 public class Replies {
 
     long id;
