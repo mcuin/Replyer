@@ -24,12 +24,10 @@ import java.util.Map;
 public class ReplyList extends AppCompatActivity {
 
     ListView replies;
-    ArrayList<HashMap<String, String>> entries;
+    ArrayList<HashMap<String, String>> entries = new ArrayList<>();
     HashMap<String, String> reply = new HashMap<>();
     SimpleAdapter adapter;
     DatabaseHandler db;
-    String nameOut, messageOut;
-    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,6 @@ public class ReplyList extends AppCompatActivity {
 
         replies = (ListView) findViewById(R.id.replyList);
         replies.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        entries = new ArrayList<>();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,27 +76,13 @@ public class ReplyList extends AppCompatActivity {
 
         db = new DatabaseHandler(this);
 
-        final List<Replies> reps = db.getAllReplies();
-        entries = new ArrayList<>();
-
-        for (Replies rep : reps) {
-            String name = "" + rep.getName();
-            String message = "" + rep.getMessage();
-
-            reply.put(name, message);
-            entries.add(reply);
-
-            adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_1, new String[] {name},
-                    new int[] {android.R.id.text1});
-            replies.setAdapter(adapter);
-
-        }
+        populateList(db);
 
         replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ReplyList.this, AddReply.class);
-                Replies reply = db.getReply(id+1);
+                Replies reply = db.getReply(id + 1);
                 intent.putExtra("id", reply.getId());
                 intent.putExtra("name", reply.getName());
                 intent.putExtra("message", reply.getMessage());
@@ -118,6 +101,23 @@ public class ReplyList extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+        private void populateList(DatabaseHandler db) {
+
+            final List<Replies> reps = db.getAllReplies();
+
+            for (Replies rep : reps) {
+                String name = "" + rep.getName();
+                String message = "" + rep.getMessage();
+
+                reply.put(name, message);
+                entries.add(reply);
+
+                adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_1, new String[]{name},
+                        new int[]{android.R.id.text1});
+                replies.setAdapter(adapter);
+            }
     }
 
 }
