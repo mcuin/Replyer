@@ -25,10 +25,11 @@ public class ReplyList extends AppCompatActivity {
 
     ListView replies;
     ArrayList<HashMap<String, String>> entries;
-    ArrayList<Integer> rId = new ArrayList<>();
     HashMap<String, String> reply = new HashMap<>();
     SimpleAdapter adapter;
     DatabaseHandler db;
+    String nameOut, messageOut;
+    Cursor cursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,13 +88,12 @@ public class ReplyList extends AppCompatActivity {
 
             reply.put(name, message);
             entries.add(reply);
+
+            adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_1, new String[] {name},
+                    new int[] {android.R.id.text1});
+            replies.setAdapter(adapter);
+
         }
-
-        adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_2, new String[] {reply.get("name"), reply.get("message")},
-                new int[] {android.R.id.text1, android.R.id.text2});
-        replies.setAdapter(adapter);
-
-        System.out.println(entries.toString());
 
         replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
