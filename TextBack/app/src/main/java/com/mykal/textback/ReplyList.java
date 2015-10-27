@@ -14,12 +14,13 @@ import android.widget.SimpleAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ReplyList extends AppCompatActivity {
 
     ListView replies;
-    ArrayList<HashMap<String, String>> entries = new ArrayList<>();
+    ArrayList<Map<String, String>> entries;
     HashMap<String, String> reply = new HashMap<>();
     SimpleAdapter adapter;
     DatabaseHandler db;
@@ -70,8 +71,23 @@ public class ReplyList extends AppCompatActivity {
         super.onResume();
 
         db = new DatabaseHandler(this);
+        entries = new ArrayList<>();
 
-        populateList(db);
+        final List<Replies> reps = db.getAllReplies();
+
+        for (Replies rep : reps) {
+            String name = "" + rep.getName();
+            String message = "" + rep.getMessage();
+
+            reply.put("name", name);
+            reply.put("message", message);
+
+            entries.add(rep.getId(), reply);
+        }
+
+        adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_2, new String[]{"name", "message"},
+                new int[]{android.R.id.text1, android.R.id.text2});
+        replies.setAdapter(adapter);
 
         replies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,29 +106,12 @@ public class ReplyList extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                Replies reply = db.getReply(id+1);
+                Replies reply = db.getReply(id + 1);
                 db.deleteReply(reply.getId());
                 adapter.notifyDataSetChanged();
                 return true;
             }
         });
     }
-
-        private void populateList(DatabaseHandler db) {
-
-            final List<Replies> reps = db.getAllReplies();
-
-            for (Replies rep : reps) {
-                String name = "" + rep.getName();
-                String message = "" + rep.getMessage();
-
-                reply.put(name, message);
-                entries.add(reply);
-
-                adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_1, new String[]{name},
-                        new int[]{android.R.id.text1});
-                replies.setAdapter(adapter);
-            }
-        }
 
 }
