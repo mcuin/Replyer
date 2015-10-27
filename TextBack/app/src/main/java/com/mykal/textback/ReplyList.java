@@ -32,6 +32,8 @@ public class ReplyList extends AppCompatActivity {
 
         replies = (ListView) findViewById(R.id.replyList);
         replies.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        db = new DatabaseHandler(this);
+        db.defaultSelect();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +84,7 @@ public class ReplyList extends AppCompatActivity {
             reply.put("name", name);
             reply.put("message", message);
 
-            entries.add(rep.getId(), reply);
+            entries.add((rep.getId() - 1), reply);
         }
 
         adapter = new SimpleAdapter(this, entries, android.R.layout.simple_list_item_2, new String[]{"name", "message"},

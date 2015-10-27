@@ -93,7 +93,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void deleteReply(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        db.delete(TABLE_REPLIES, KEY_ID + " = ?", new String[] {String.valueOf(id)});
+        db.delete(TABLE_REPLIES, KEY_ID + " = ?", new String[]{String.valueOf(id)});
         db.close();
     }
+     void defaultSelect() {
+         SQLiteDatabase db = this.getWritableDatabase();
+
+         ContentValues values = new ContentValues();
+         values.put(KEY_NAME, "No Selection");
+         values.put(KEY_MESSAGE, "Turn off");
+
+         db.insert(TABLE_REPLIES, null, values);
+         db.close();
+     }
 }
