@@ -11,7 +11,7 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="125px"
+        android:layout_height="150dp"
         android:id="@+id/versionListView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -19,7 +19,7 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="125px"
+        android:layout_height="150dp"
         android:id="@+id/defaultReplyListView"
         android:layout_below="@+id/versionListView"
         android:layout_alignParentLeft="true"
