@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mykal.textback" >
+    package="com.mykal.replyer">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".ReplyList"
-            android:label="@string/app_name" >
+            android:name=".ReplyListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AddReply"
-            android:label="@string/title_activity_add_reply"
-            android:parentActivityName=".ReplyList">
-        </activity>
-        <activity
-            android:name=".Feedback"
-            android:label="@string/title_activity_feedback"
-            android:parentActivityName=".ReplyList">
-        </activity>
-        <uses-permission android:name="android.permission.SMS_RECEIVED" />
-        <uses-permission android:name="android.permission.SEND_SMS" />
+        <activity android:name=".AddReplyActivity" />
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name="com.mykal.Replyer.SettingsActivity" />
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,2 +1,2 @@
 # TextBackAndroid
-Android application to send an automatic reply when set.  
+Android application to send an automatic reply when set.

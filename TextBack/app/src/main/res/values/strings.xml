@@ -1,7 +1,4 @@
 <resources>
-    <string name="app_name">TextBack</string>
-
-    <string name="action_feedback">Feedback</string>
-    <string name="title_activity_add_reply">AddReply</string>
-    <string name="title_activity_feedback">Feedback</string>
+    <string name="app_name">Replyer</string>
+    <string name="action_settings">Settings</string>
 </resources>
